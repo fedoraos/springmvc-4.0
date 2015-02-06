@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!--  <typeAliases>
+        <typeAlias alias="User" type="com.fedora.org.domain.User" />
+    </typeAliases>-->
+
+    <!--&lt;!&ndash;可以根据环境选择对应的数据源&ndash;&gt;
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+                <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+                <property name="username" value="hggrid"/>
+                <property name="password" value="hggrid"/>
+            </dataSource>
+        </environment>
+        <environment id="production">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+                <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+                <property name="username" value="hg30"/>
+                <property name="password" value="hg30"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+-->
+  <!--  <mappers>
+        <mapper resource="mappers/LoginRepository.xml"/>
+    </mappers>-->
+</configuration>

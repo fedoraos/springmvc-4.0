@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fedora.org.repository.LoginRepository">
+
+    <resultMap id="userResult" type="User">
+        <result property="id" column="id"  javaType="long"/>
+        <result property="userName" column="userName"/>
+        <result property="name" column="name" />
+        <result property="mobile" column="mobile" />
+        <association property="product" javaType="product">
+            <result property="description" column="userName" />
+            <result property="manufacturer" column="name" />
+            <result property="category" column="mobile" />
+        </association>
+    </resultMap>
+
+
+
+    
+    <sql id="field">
+      ID,ORGANIZATIONID,CREDITS1,CREDITS2,FAILURETIMES,ISLOCK,ISADMIN,CHANGEPASSWORD,HASNEWMESSAGE,USERNAME,NAME,PASSWORD,MOBILE,FULLPINYIN,SIMPLEPINYIN,EMAIL,LASTLOGINIP,PREVIOUSLOGINIP,CREATEUSER,UPDATEUSER,ORGINTERNALCODE,WORKCOMPANY,WORKPHONE,HOMEPHONE,PREVIOUSLOGINTIME,LASTLOGINTIME,CREATEDATE,UPDATEDATE,VPDN,ISSHUTDOWN,CONNECTVPDN,ISFRISTWORKBENCH,IMGURL,SCUREITYKEY,SECURITYLOCK
+
+    </sql>
+
+
+    <select id="getUserById" parameterType="long" resultMap="userResult">
+       SELECT 
+        <include refid="field" />
+        FROM USERS WHERE ID= #{id, jdbcType=NUMERIC}
+    </select>
+    
+    <select id="selectList" parameterType="long" resultType="User">
+        select * from Users where id <![CDATA[<=]]> #{id}
+
+    </select>
+
+    <select id="queryByDeptCode"  resultMap="userResult">
+        select * from FP_USER_BASIC_INFO ubi where
+        <if test="deptCode != null and deptCode != ''">
+            branch_id = #{deptCode} and
+        </if>
+        create_date &lt; #{createDate}
+    </select>
+
+    <select id="search" parameterType="map" resultType="LinkedCaseInsensitiveMap">
+        select * from FP_USER_BASIC_INFO ubi
+        <where>
+            <if test="userName != null">
+                user_name like '%'|| #{userName} || '%'
+            </if>
+            <if test="realName != null">
+                and real_name like '%'|| #{realName} || '%'
+            </if>
+
+        </where>
+    </select>
+</mapper>
