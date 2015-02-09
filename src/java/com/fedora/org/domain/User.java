@@ -1,9 +1,11 @@
 package com.fedora.org.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by arno on 15-2-5.
  */
-public class User {
+public class User implements Serializable{
 
     private Long id;
     private String userName;

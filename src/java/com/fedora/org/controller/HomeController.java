@@ -5,9 +5,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import com.fedora.cache.impl.MemcachedService;
 import com.fedora.org.domain.User;
 import com.fedora.org.repository.LoginRepository;
-import com.fedora.org.repository.impl.LoginRepositoryImpl;
+import net.rubyeye.xmemcached.MemcachedClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,8 @@ public class HomeController {
 
     @Autowired
     private LoginRepository loginRepository;
+    @Autowired
+    private MemcachedService memcachedService;
 
     /**
      * Simply selects the home view to render by returning its name.
@@ -37,12 +40,24 @@ public class HomeController {
         model.addAttribute("greeting", "Welcome to Web Store!");
         model.addAttribute("tagline", "The one and only amazing web store");
         User user = loginRepository.getUserById(1L);
-
-        List<User> list = loginRepository.selectList(20L);
+        List<User> list = getUsers();
         System.out.println(user);
         System.out.println(list);
         model.addAttribute("users", list);
         return "welcome";
+    }
+
+    private List<User> getUsers() {
+        List<User> list = (List<User>) memcachedService.get("userLIst");
+        if(list != null){
+            memcachedService.remove("userLIst");
+            memcachedService.removeServer("localhost:12000");
+        }
+        if(list == null) {
+           list = loginRepository.selectList(20L);
+            memcachedService.set("userLIst",list);
+        }
+        return list;
     }
 
 

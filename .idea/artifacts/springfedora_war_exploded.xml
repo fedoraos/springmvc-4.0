@@ -73,6 +73,7 @@
           <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.6" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.2.8" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis-spring:1.2.2" />
+          <element id="library" level="project" name="Maven: com.googlecode.xmemcached:xmemcached:2.0.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">
